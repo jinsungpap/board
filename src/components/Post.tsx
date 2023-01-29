@@ -6,7 +6,9 @@ import { PostInfo } from "../@types/postInfo";
 export const Post: React.FC<{ post: PostInfo }> = ({ post }) => {
   const navigation = useNavigation();
   const goDetail = () => {
-    navigation.navigate("PostDetail", {});
+    navigation.navigate("PostDetail", {
+      post,
+    });
   };
   return (
     <TouchableOpacity onPress={goDetail}>

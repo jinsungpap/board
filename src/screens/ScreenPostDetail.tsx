@@ -1,28 +1,47 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import parseHtmlTextContent from "parse-html-text-content";
-import { SafeAreaView, Text, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { useRoute } from "@react-navigation/native";
+import { PostInfo } from "../@types/postInfo";
+import RenderHtml from "react-native-render-html";
 
 export const ScreenPostDetail = () => {
+  const { width } = useWindowDimensions();
+  const route = useRoute();
+  const params: any = route?.params;
+  const post: PostInfo = params?.post;
   const [desc, setDesc] = useState("");
+  const [originDesc, setOriginDesc] = useState("");
   const getDescription = (html) => {
     const description = parseHtmlTextContent(html);
+    console.log("description ::", description);
     return description.length > 100 ? `${description.substring(0, 100)}...` : description;
   };
 
   useEffect(() => {
-    const descHtml = `
-      <div>안녕하세요<div><br><div>반갑습니다<div>
-    `;
+    if (post?.originDescription) {
+      setOriginDesc(post?.originDescription);
+      return;
+    }
+    const descHtml = post?.description || "";
     setDesc(getDescription(descHtml));
   }, []);
 
   return (
     <SafeAreaView edges={["bottom", "left", "right"]} style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={styles.headerStyle}>Add Post</Text>
-        <View style={styles.htmlBoxStyle}>
-          <Text>{desc}</Text>
-        </View>
+        <Text style={styles.headerStyle}>Detail Post</Text>
+        <ScrollView>
+          <View style={styles.htmlBoxStyle}>
+            {originDesc ? (
+              <>
+                <RenderHtml contentWidth={330} source={{ html: originDesc }} />
+              </>
+            ) : (
+              <Text>{desc}</Text>
+            )}
+          </View>
+        </ScrollView>
         <View style={styles.richTextContainer}></View>
       </View>
     </SafeAreaView>
@@ -46,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   htmlBoxStyle: {
-    height: 200,
+    // height: 200,
     width: 330,
     backgroundColor: "#fff",
     borderRadius: 10,

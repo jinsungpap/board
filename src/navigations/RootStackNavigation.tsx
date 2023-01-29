@@ -22,7 +22,7 @@ export const RootStackNavigation: React.FC = () => {
     >
       <Stack.Screen name="BottomTab" component={BottomTabNavigation} />
       <Stack.Screen name="PostAdd" component={ScreenPostAdd} />
-      {/* <Stack.Screen name="PostDetail" component={ScreenPostDetail} /> */}
+      <Stack.Screen name="PostDetail" component={ScreenPostDetail} />
     </Stack.Navigator>
   );
 };
