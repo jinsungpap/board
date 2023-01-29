@@ -11,6 +11,8 @@ import { RNS3 } from "react-native-aws3";
 
 export const upload = async (image) => {
   console.log("image :::", image);
+  console.log("S3_ACCESSKEY :::", process.env.S3_ACCESSKEY);
+  console.log("S3_SECRETKEY :::", process.env.S3_SECRETKEY);
   const file = {
     uri: image?.uri,
     name: image?.fileName,
@@ -20,8 +22,8 @@ export const upload = async (image) => {
     keyPrefix: "uploads/",
     bucket: "nest-dev-1",
     region: "ap-northeast-2",
-    accessKey: "secretkey",
-    secretKey: "secretkey",
+    accessKey: process.env.S3_ACCESSKEY,
+    secretKey: process.env.S3_SECRETKEY,
     successActionStatus: 201,
   };
   return RNS3.put(file, options)

@@ -2,12 +2,13 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import { IconName } from "../components/Icons";
 import { TabIcon } from "../components/TabIcon";
-import { ScreenBlogAdd } from "../screens/ScreenBlogAdd";
 import { ScreenHome } from "../screens/ScreenHome";
+import { ScreenPostList } from "../screens/ScreenPostList";
 
 export type BottomTabParamList = {
   Home: undefined;
-  BlogAdd: undefined;
+  Post: undefined;
+  PostAdd: undefined;
 };
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -16,8 +17,8 @@ export const BottomTabNavigation = () => {
     <BottomTab.Navigator
       screenOptions={({ route }) => {
         const getIconsName = (): IconName => {
-          if (route.name === "BlogAdd") {
-            return "person";
+          if (route.name === "Post") {
+            return "list";
           }
           return "home";
         };
@@ -31,7 +32,7 @@ export const BottomTabNavigation = () => {
       }}
     >
       <BottomTab.Screen name="Home" component={ScreenHome} />
-      <BottomTab.Screen name="BlogAdd" component={ScreenBlogAdd} />
+      <BottomTab.Screen name="Post" component={ScreenPostList} />
     </BottomTab.Navigator>
   );
 };
