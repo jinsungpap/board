@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
 
   htmlBoxStyle: {
-    // height: 200,
+    minHeight: 200,
     width: 330,
     backgroundColor: "#fff",
     borderRadius: 10,
